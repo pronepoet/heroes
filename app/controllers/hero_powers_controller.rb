@@ -1,7 +1,7 @@
 class HeroPowersController < ApplicationController
     def create
     heropower = HeroPower.create!(hero_power_params)
-    render json: heropower.hero
+    render json: heropower.hero, serializer: HeroandpowersSerializer
 
     end
 
