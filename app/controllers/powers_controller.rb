@@ -6,26 +6,33 @@ class PowersController < ApplicationController
     end
     
     def show
-    power = Power.find_by(id: params[:id])
+    power = find_power
     if power
         render json: power
     else
-    render json: {error: "Power not found"}, status: :not_found
+    render_json
     end
     
     end
 
     def update
-    power = Power.find_by(id: params[:id])
+    power = find_power
     if power
         power.update!(power_params)
         render json: power
     else
-        render json: {error: "Power not found"}, status: :not_found
+        render_json
     end
     end
 
     private
+    def render_json
+        render json: {error: "Power not found"}, status: :not_found
+    end
+    def find_power
+        Power.find_by(id: params[:id])
+    end
+
     def power_params
     params.permit(:name, :description)
     end
